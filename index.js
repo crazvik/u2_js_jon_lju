@@ -9,14 +9,15 @@ var oneChest = false;
 */
 window.onload = function init() {
   initGameUI();
-  this.placeTreasure();
+  document.getElementById("refresh-button").addEventListener('click', refresh);
+  initScoreBoard();
 }
 
 function initGameUI(){
   // Call functions that creates the Game UI
   initChests();
-  initScoreBoard();
   initChestEventListeners();
+  placeTreasure();
 }
 
 function initChests() {
@@ -31,9 +32,6 @@ function initChests() {
 function initScoreBoard() {
 }
 
-function initRefreshButton() {
-
-}
 
 function initChestEventListeners() {
   chest1.addEventListener("click", chestClicked);
@@ -49,25 +47,19 @@ function placeTreasure() {
 
 function chestClicked(e) {
   let event = e.target;
-  let chest1Open = document.createElement("IMG");
-  let chest2Open = document.createElement("IMG");
-  let chest3Open = document.createElement("IMG");
   while(oneChest===false) {
     if(event===chest1) {
-      chest1Open.setAttribute("src", "images/chest-open.png");
-      event.replaceWith(chest1Open);
+      chest1.setAttribute("src", "images/chest-open.png");
       oneChest = true;
       correctChest(chest1);
     }
     else if(event===chest2) {
-      chest2Open.setAttribute("src", "images/chest-open.png");
-      event.replaceWith(chest2Open);
+      chest2.setAttribute("src", "images/chest-open.png");
       oneChest = true;
       correctChest(chest2);
     }
     else {
-      chest3Open.setAttribute("src", "images/chest-open.png");
-      event.replaceWith(chest3Open);
+      chest3.setAttribute("src", "images/chest-open.png");
       oneChest = true;
       correctChest(chest3);
     }
@@ -76,23 +68,37 @@ function chestClicked(e) {
 
 function correctChest(clickedChest) {
   if(clickedChest===chest1 && treasureRow[0]===1) {
-    console.log("test1");
+    chest1 = getImageFromPexels(chest1);
   }
   else if(clickedChest===chest2 && treasureRow[1]===1) {
-    console.log("test2");
+    chest2 = getImageFromPexels(chest2);
   }
   else if(clickedChest===chest3 && treasureRow[2]===1) {
-    console.log("test3");
+    chest3 = getImageFromPexels(chest3);
   }
 }
 
-function getImageFromPexels(){
+function getImageFromPexels(selectedChest) {
   // make a request towards pexels API and get 1 Diamond image
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://api.pexels.com/v1/search?query=diamond+query&per_page=5&page=1", true);
+  xhr.setRequestHeader('Authorization', '563492ad6f91700001000001f767263948934f83bd0515459cb31716');
+  xhr.onload = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      var text = xhr.responseText;
+      var container = JSON.parse(text);
+    }
+};
+  
+  xhr.send();
+  return selectedChest;
 }
 
 function refresh() {
-  initChests();
-}
-
-function removeChestEvents(){
+  oneChest = false;
+  while(document.getElementById("chests").firstChild) {
+    if(document.getElementById("chests").firstChild.remove());
+  }
+  treasureRow = [0, 0, 0];
+  initGameUI();
 }
