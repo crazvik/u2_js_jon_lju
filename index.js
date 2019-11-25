@@ -9,6 +9,7 @@ var oneChest = false;
 */
 window.onload = function init() {
   initGameUI();
+  this.placeTreasure();
 }
 
 function initGameUI(){
@@ -41,8 +42,9 @@ function initChestEventListeners() {
 }
 
 function placeTreasure() {
-  let i = Math.floor(Math.random()*3)+1;
+  let i = Math.floor(Math.random()*3);
   treasureRow[i] = 1;
+  console.log(treasureRow);
 }
 
 function chestClicked(e) {
@@ -55,19 +57,33 @@ function chestClicked(e) {
       chest1Open.setAttribute("src", "images/chest-open.png");
       event.replaceWith(chest1Open);
       oneChest = true;
+      correctChest(chest1);
     }
     else if(event===chest2) {
       chest2Open.setAttribute("src", "images/chest-open.png");
       event.replaceWith(chest2Open);
       oneChest = true;
+      correctChest(chest2);
     }
     else {
       chest3Open.setAttribute("src", "images/chest-open.png");
       event.replaceWith(chest3Open);
       oneChest = true;
+      correctChest(chest3);
     }
   }
-  
+}
+
+function correctChest(clickedChest) {
+  if(clickedChest===chest1 && treasureRow[0]===1) {
+    console.log("test1");
+  }
+  else if(clickedChest===chest2 && treasureRow[1]===1) {
+    console.log("test2");
+  }
+  else if(clickedChest===chest3 && treasureRow[2]===1) {
+    console.log("test3");
+  }
 }
 
 function getImageFromPexels(){
