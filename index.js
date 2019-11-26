@@ -27,6 +27,7 @@ function initChests() {
   document.getElementById("chests").appendChild(chest1);
   document.getElementById("chests").appendChild(chest2);
   document.getElementById("chests").appendChild(chest3);
+  document.getElementById("chests").children[1].style.margin = ("0px 20px");
 }
 
 function initChestEventListeners() {
@@ -38,12 +39,15 @@ function initChestEventListeners() {
 function placeTreasure() {
   let i = Math.floor(Math.random()*3);
   treasureRow[i] = 1;
-  console.log(treasureRow);
+  console.log(treasureRow); //debug help
 }
 
 function initScoreBoard() {
   document.getElementById("game-wrapper").append("Score: ");
   document.getElementById("game-wrapper").append(points);
+  document.getElementById("game-wrapper").style.color = ("white");
+  document.getElementById("game-wrapper").style.textAlign = ("center");
+  document.getElementById("game-wrapper").style.fontFamily = ("Verdana, Geneva, Tahoma, sans-serif");
 }
 
 function updateScoreBoard() {
@@ -90,15 +94,14 @@ function correctChest(clickedChest) {
 function getImageFromPexels(selectedChest) {
   // make a request towards pexels API and get 1 Diamond image
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://api.pexels.com/v1/search?query=diamond+query&per_page=5&page=1", true);
+  xhr.open("GET", "https://api.pexels.com/v1/search?query=jewel&query=treasure+query&per_page=5&page=1", true);
   xhr.setRequestHeader('Authorization', '563492ad6f91700001000001f767263948934f83bd0515459cb31716');
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var text = xhr.responseText;
-      var container = JSON.parse(text);
+      var container = JSON.parse(xhr.responseText);
+      console.log(xhr.responseText);
     }
 };
-  
   xhr.send();
   return selectedChest;
 }

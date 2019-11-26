@@ -16,11 +16,8 @@ body {
 }
 
 #game-wrapper {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  color: white;
 }
 
 #chests {
@@ -29,10 +26,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#chests>img {
-  margin: 0px 20px;
 }
 
 #refresh-button {
