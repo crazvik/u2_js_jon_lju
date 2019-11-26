@@ -16,8 +16,11 @@ body {
 }
 
 #game-wrapper {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   flex-direction: column;
+  text-align: center;
+  color: white;
 }
 
 #chests {
@@ -42,6 +45,7 @@ body {
   font-size: 18px;
   margin: auto;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 #refresh-button:hover {

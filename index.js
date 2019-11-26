@@ -8,12 +8,12 @@ var oneChest = false;
 * Function that initiates the whole Game application.
 */
 window.onload = function init() {
-  initGameUI();
   document.getElementById("refresh-button").addEventListener('click', refresh);
+  initGameUI();
   initScoreBoard();
 }
 
-function initGameUI(){
+function initGameUI() {
   // Call functions that creates the Game UI
   initChests();
   initChestEventListeners();
@@ -29,10 +29,6 @@ function initChests() {
   document.getElementById("chests").appendChild(chest3);
 }
 
-function initScoreBoard() {
-}
-
-
 function initChestEventListeners() {
   chest1.addEventListener("click", chestClicked);
   chest2.addEventListener("click", chestClicked);
@@ -43,6 +39,16 @@ function placeTreasure() {
   let i = Math.floor(Math.random()*3);
   treasureRow[i] = 1;
   console.log(treasureRow);
+}
+
+function initScoreBoard() {
+  document.getElementById("game-wrapper").append("Score: ");
+  document.getElementById("game-wrapper").append(points);
+}
+
+function updateScoreBoard() {
+  points += 5;
+  document.getElementById("game-wrapper").lastChild.replaceWith(points);
 }
 
 function chestClicked(e) {
@@ -69,12 +75,15 @@ function chestClicked(e) {
 function correctChest(clickedChest) {
   if(clickedChest===chest1 && treasureRow[0]===1) {
     chest1 = getImageFromPexels(chest1);
+    updateScoreBoard();
   }
   else if(clickedChest===chest2 && treasureRow[1]===1) {
     chest2 = getImageFromPexels(chest2);
+    updateScoreBoard();
   }
   else if(clickedChest===chest3 && treasureRow[2]===1) {
     chest3 = getImageFromPexels(chest3);
+    updateScoreBoard();
   }
 }
 
@@ -83,7 +92,7 @@ function getImageFromPexels(selectedChest) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "https://api.pexels.com/v1/search?query=diamond+query&per_page=5&page=1", true);
   xhr.setRequestHeader('Authorization', '563492ad6f91700001000001f767263948934f83bd0515459cb31716');
-  xhr.onload = function(){
+  xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) {
       var text = xhr.responseText;
       var container = JSON.parse(text);
