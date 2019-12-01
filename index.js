@@ -94,12 +94,12 @@ function correctChest(clickedChest) {
 function getImageFromPexels(selectedChest) {
   // make a request towards pexels API and get 1 Diamond image
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://api.pexels.com/v1/search?query=jewel&query=treasure+query&per_page=5&page=1", true);
+  xhr.open("GET", "https://api.pexels.com/v1/search?query=diamond+query&per_page=15&page=1", true);
   xhr.setRequestHeader('Authorization', '563492ad6f91700001000001f767263948934f83bd0515459cb31716');
   xhr.onload = function() {
     if (this.readyState == 4 && this.status == 200) {
       var container = JSON.parse(xhr.responseText);
-      console.log(xhr.responseText);
+      selectedChest.src = container["photos"][Math.round(Math.random()*15)]["src"]["medium"];
     }
 };
   xhr.send();
