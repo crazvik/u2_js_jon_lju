@@ -143,6 +143,7 @@ function correctChest(clickedChest) {
  * text. Texten sparas i en variabel som sedan ändrar bildkällan till
  * selectedChest med hjälp av respektive JSON-objekt.
  * @param selectedChest är kistan som klickats på.
+ * @returns selectedChest med den nya bildkällan returneras
  */
 function getImageFromPexels(selectedChest) {
   // make a request towards pexels API and get 1 Diamond image
